@@ -48,3 +48,8 @@ void player_destroy(player_t *player)
     sfRectangleShape_destroy(player->shape);
     free(player);
 }
+
+sfFloatRect player_get_bounds(player_t *player)
+{
+    return sfRectangleShape_getGlobalBounds(player->shape);
+}

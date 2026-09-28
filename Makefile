@@ -8,7 +8,8 @@
 NAME = my_game
 
 SRC = src/main.c \
-      src/game.c
+      src/game.c \
+      src/powerup.c
 
 OBJ = $(SRC:.c=.o)
 

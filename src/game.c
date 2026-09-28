@@ -19,6 +19,8 @@ game_t *game_init(void)
         sfResize | sfClose, NULL);
     sfRenderWindow_setFramerateLimit(game->window, 60);
     game->player = player_create();
+    game->powerup = powerup_create(WINDOW_WIDTH / 4.f, WINDOW_HEIGHT / 4.f);
+    game->score = 0;
     return game;
 }
 
@@ -37,8 +39,11 @@ void game_run(game_t *game)
     while (sfRenderWindow_isOpen(game->window)) {
         game_handle_events(game);
         player_update(game->player, game->window);
+        if (powerup_check_collision(game->powerup, game->player))
+            game->score += 1;
         sfRenderWindow_clear(game->window, sfBlack);
         player_draw(game->window, game->player);
+        powerup_draw(game->window, game->powerup);
         sfRenderWindow_display(game->window);
     }
 }
@@ -46,6 +51,7 @@ void game_run(game_t *game)
 void game_destroy(game_t *game)
 {
     player_destroy(game->player);
+    powerup_destroy(game->powerup);
     sfRenderWindow_destroy(game->window);
     free(game);
 }
