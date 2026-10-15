@@ -19,6 +19,7 @@ game_t *game_init(void)
         sfResize | sfClose, NULL);
     sfRenderWindow_setFramerateLimit(game->window, 60);
     game->player = player_create();
+    sfRenderWindow_close(game->window);
     return game;
 }
 
